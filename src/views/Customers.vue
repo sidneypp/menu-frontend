@@ -40,7 +40,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="name">Nome</vs-th>
+        <vs-th sort-key="first_name">Nome</vs-th>
         <vs-th sort-key="email">Email</vs-th>
         <vs-th sort-key="created_at">Data de Criação</vs-th>
         <vs-th>Ação</vs-th>
