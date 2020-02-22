@@ -46,10 +46,13 @@ import router from './router'
 // Vuex Store
 import store from './store/store'
 
-
 // Vuejs - Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
+
+// VeeValidate
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
 
 
 // PrismJS
