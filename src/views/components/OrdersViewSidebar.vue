@@ -9,18 +9,28 @@
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
 
       <div class="p-6">
-        <!-- ORDER STATUS -->
-        <vs-select v-model="dataOrder_status" label="Order Status" class="mt-5 w-full">
-          <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in orderStatusChoices" />
-        </vs-select>
+        <!-- CUSTOMER -->
+        <div class="mt-5 w-full">
+          <label for="" class="vs-select--label">Cliente</label>
+          <v-select v-model="customerId" :options="customers" :reduce="customer => customer.id" name="customer" :getOptionLabel="getOptionLabel" />
+        </div>
 
-        <!-- LAST NAME -->
-        <vs-input label="Último nome" v-model="lastName" class="mt-5 w-full" name="last_name" v-validate="'required|alpha_spaces'" />
-        <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
-        
-        <!-- EMAIL -->
-        <vs-input label="Email" v-model="email" class="mt-5 w-full" name="email" v-validate="'required|email'" />
-        <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
+        <!-- ORDER STATUS -->
+        <div class="mt-5 w-full">
+          <label for="" class="vs-select--label">Status do Pedido</label>
+          <v-select v-model="status" :options="orderStatusChoices" :reduce="customer => customer.value" label="text" name="status" />
+        </div>
+
+        <!-- PRICE -->
+        <vs-input
+          icon-pack="feather"
+          icon="icon-dollar-sign"
+          label="Valor do Pedido"
+          v-model="price"
+          class="mt-5 w-full"
+          v-validate="{ required: true, regex: /\d+(\.\d+)?$/ }"
+          name="price" />
+        <span class="text-danger text-sm" v-show="errors.has('price')">{{ errors.first('price') }}</span>
       </div>
     </component>
 
@@ -33,21 +43,13 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import vSelect from 'vue-select'
 import { Validator } from 'vee-validate';
 
 const dict = {
   custom: {
-    first_name: {
-      required: 'Digite seu primeiro nome',
-      alpha_spaces: "Seu primeiro nome pode conter apenas caracteres alfabéticos"
-    },
-    last_name: {
-      required: 'Digite seu último nome',
-      alpha_spaces: "Seu último nome pode conter apenas caracteres alfabéticos"
-    },
-    email: {
-        required: 'Digite seu email',
-        email: 'O campo email deve ser um email válido'
+    price: {
+      required: 'Digite o valor do pedido'
     }
   }
 };
@@ -56,7 +58,8 @@ Validator.localize('en', dict);
 
 export default {
   components: {
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
+    vSelect
   },
   props: {
     isSidebarActive: {
@@ -71,14 +74,14 @@ export default {
   data () {
     return {
 			isANewItem: Object.entries(this.data).length === 0,
-      dataId: null,
-      firstName: '',
-      lastName: '',
-      email: '',
+      id: null,
+      customerId: null,
+      status: 'NEW',
+      price: '',
       loading: false,
       orderStatusChoices: [
         {text:'Novo', value:'NEW'},
-        {text:'Pendente', value:'PEDDING'},
+        {text:'Pendente', value:'PENDING'},
         {text:'Entregue', value:'DELIVERED'}
       ],
       settings: {
@@ -102,15 +105,16 @@ export default {
 		},
     isSidebarActive (val) {
       if (!val) return
+      this.$store.dispatch('customers/fetchDataListItems')
       if (Object.entries(this.data).length === 0) {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, first_name, last_name, email } = JSON.parse(JSON.stringify(this.data))
-        this.dataId = id
-        this.firstName = first_name
-        this.lastName = last_name
-        this.email = email
+        const { id, status, value, customer } = JSON.parse(JSON.stringify(this.data))
+        this.id = id
+        this.status = status
+        this.price = value
+        this.customerId = customer.id
         this.initValues()
       }
     }
@@ -127,9 +131,12 @@ export default {
       }
     },
     isFormValid () {
-      return !this.errors.any() && this.firstName && this.lastName && this.email
+      return !this.errors.any() && this.customerId && this.status && this.price > 0
     },
-    scrollbarTag () { return this.$store.getters.scrollbarTag }
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
+    customers () {
+      return this.$store.state.customers.items
+    }
   },
   methods: {
 		closeSidebar() {
@@ -139,28 +146,28 @@ export default {
 		},
     initValues () {
       if (this.data.id) return
-      this.dataId = null
-      this.firstName = ''
-      this.lastName = ''
-      this.email = ''
+      this.id = null
+      this.status = 'NEW'
+      this.price = ''
+      this.customerId = null
     },
     submitData () {
       this.$validator.validateAll().then(result => {
 				this.loading = true;
         if (result) {
           const obj = {
-            id: this.dataId,
-						first_name: this.firstName,
-						last_name: this.lastName,
-            email: this.email,
+            id: this.id,
+            customer_id: this.customerId,
+						status: this.status,
+						value: this.price,
           }
 
 					let response = null
-          if (this.dataId !== null && this.dataId >= 0) {
-            response = this.$store.dispatch('customers/updateItem', obj)
+          if (this.id !== null && this.id >= 0) {
+            response = this.$store.dispatch('orders/updateItem', obj)
           } else {
             delete obj.id
-            response = this.$store.dispatch('customers/addItem', obj)
+            response = this.$store.dispatch('orders/addItem', obj)
 					}
 					response.then(() => {
 						this.$emit('closeSidebar')
@@ -179,6 +186,9 @@ export default {
 					}).finally(() => this.loading = false)
         }
       })
+    },
+    getOptionLabel({ first_name, last_name}) {
+      return `${first_name} ${last_name}`
     }
   }
 }
