@@ -9,9 +9,9 @@ export default {
       const customerIndex = state.items.findIndex(({ id }) => id === customer.id)
       Object.assign(state.items[customerIndex], customer)
     },
-    REMOVE_CUSTOMER (state, itemId) {
-      const ItemIndex = state.items.findIndex((p) => p.id === itemId)
-      state.items.splice(ItemIndex, 1)
+    REMOVE_CUSTOMER (state, customerId) {
+      const customerIndex = state.items.findIndex((p) => p.id === customerId)
+      state.items.splice(customerIndex, 1)
     }
   }
   
