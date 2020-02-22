@@ -1,0 +1,16 @@
+version: '3'
+services:
+  front:
+    container_name: front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
