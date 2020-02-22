@@ -70,7 +70,7 @@ export default {
   data () {
     return {
 			isANewItem: Object.entries(this.data).length === 0,
-      dataId: null,
+      id: null,
       firstName: '',
       lastName: '',
       email: '',
@@ -101,7 +101,7 @@ export default {
         this.$validator.reset()
       } else {
         const { id, first_name, last_name, email } = JSON.parse(JSON.stringify(this.data))
-        this.dataId = id
+        this.id = id
         this.firstName = first_name
         this.lastName = last_name
         this.email = email
@@ -133,7 +133,7 @@ export default {
 		},
     initValues () {
       if (this.data.id) return
-      this.dataId = null
+      this.id = null
       this.firstName = ''
       this.lastName = ''
       this.email = ''
@@ -143,14 +143,14 @@ export default {
 				this.loading = true;
         if (result) {
           const obj = {
-            id: this.dataId,
+            id: this.id,
 						first_name: this.firstName,
 						last_name: this.lastName,
             email: this.email,
           }
 
 					let response = null
-          if (this.dataId !== null && this.dataId >= 0) {
+          if (this.id !== null && this.id >= 0) {
             response = this.$store.dispatch('customers/updateItem', obj)
           } else {
             delete obj.id
