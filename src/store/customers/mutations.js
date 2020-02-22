@@ -1,6 +1,6 @@
 export default {
-    ADD_CUSTOMER (state, item) {
-      state.items.unshift(item)
+    ADD_CUSTOMER (state, customer) {
+      state.items.unshift(customer)
     },
     SET_CUSTOMERS (state, customers) {
       state.items = customers
