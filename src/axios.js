@@ -1,9 +1,18 @@
 // axios
 import axios from 'axios'
 
-const baseURL = ""
+const baseURL = "http://localhost/"
 
-export default axios.create({
-  baseURL: baseURL
-  // You can add your headers here
+ const instance = axios.create({
+  baseURL: baseURL,
+  responseType: 'json'
 })
+
+instance.interceptors.response.use((response) => {
+  return response
+}, function (error) {
+  return Promise.reject(error.response)
+})
+
+
+export default instance
