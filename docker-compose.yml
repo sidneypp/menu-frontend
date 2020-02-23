@@ -6,7 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8080:80
+    - '8080:8080'
+    volumes:
+    - './src:/app/src'
+    command: /bin/sh -c "yarn serve"
     networks:
       - app-network
 
