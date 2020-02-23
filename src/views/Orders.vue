@@ -1,38 +1,66 @@
 <template>
   <div id="data-list-list-view" class="data-list-container">
+    <orders-view-sidebar
+      :is-sidebar-active="addNewDataSidebar"
+      :data="sidebarData"
+      @closeSidebar="toggleDataSidebar"
+    />
 
-    <orders-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
-
-    <vs-table ref="table" v-model="selected" pagination :max-items="itemsPerPage" search :data="orders">
-
-      <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
-
-        <div class="flex flex-wrap-reverse items-center data-list-btn-container">
+    <vs-table
+      ref="table"
+      v-model="selected"
+      pagination
+      :max-items="itemsPerPage"
+      search
+      :data="orders"
+    >
+      <div
+        slot="header"
+        class="flex flex-wrap-reverse items-center flex-grow justify-between"
+      >
+        <div
+          class="flex flex-wrap-reverse items-center data-list-btn-container"
+        >
           <!-- ADD NEW -->
-          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
-              <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Adicionar Novo</span>
+          <div
+            class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+            @click="addNewData"
+          >
+            <feather-icon icon="PlusIcon" svg-classes="h-4 w-4" />
+            <span class="ml-2 text-base text-primary">Adicionar Novo</span>
           </div>
         </div>
 
         <!-- ITEMS PER PAGE -->
-        <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
-          <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ orders.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : orders.length }} of {{ queriedItems }}</span>
-            <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
+        <vs-dropdown
+          vs-trigger-click
+          class="cursor-pointer mb-4 mr-4 items-per-page-handler"
+        >
+          <div
+            class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium"
+          >
+            <span class="mr-2"
+              >{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} -
+              {{
+                orders.length - currentPage * itemsPerPage > 0
+                  ? currentPage * itemsPerPage
+                  : orders.length
+              }}
+              of {{ queriedItems }}</span
+            >
+            <feather-icon icon="ChevronDownIcon" svg-classes="h-4 w-4" />
           </div>
           <vs-dropdown-menu>
-
-            <vs-dropdown-item @click="itemsPerPage=10">
+            <vs-dropdown-item @click="itemsPerPage = 10">
               <span>10</span>
             </vs-dropdown-item>
-            <vs-dropdown-item @click="itemsPerPage=20">
+            <vs-dropdown-item @click="itemsPerPage = 20">
               <span>20</span>
             </vs-dropdown-item>
-            <vs-dropdown-item @click="itemsPerPage=30">
+            <vs-dropdown-item @click="itemsPerPage = 30">
               <span>30</span>
             </vs-dropdown-item>
-            <vs-dropdown-item @click="itemsPerPage=50">
+            <vs-dropdown-item @click="itemsPerPage = 50">
               <span>50</span>
             </vs-dropdown-item>
           </vs-dropdown-menu>
@@ -47,47 +75,60 @@
         <vs-th>Ação</vs-th>
       </template>
 
-        <template slot-scope="{data}">
-          <tbody>
-            <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+      <template slot-scope="{ data }">
+        <tbody>
+          <vs-tr v-for="(tr, indextr) in data" :key="indextr" :data="tr">
+            <vs-td>
+              <p class="order-customer font-medium truncate">
+                {{ `${tr.customer.first_name} ${tr.customer.last_name}` }}
+              </p>
+            </vs-td>
 
-              <vs-td>
-                <p class="order-customer font-medium truncate">{{ `${tr.customer.first_name} ${tr.customer.last_name}` }}</p>
-              </vs-td>
+            <vs-td>
+              <vs-chip
+                :color="getOrderStatusColor(tr.status)"
+                class="product-order-status"
+                >{{ translateStatus(tr.status) }}</vs-chip
+              >
+            </vs-td>
 
-              <vs-td>
-                <vs-chip :color="getOrderStatusColor(tr.status)" class="product-order-status">{{ translateStatus(tr.status) }}</vs-chip>
-              </vs-td>
+            <vs-td>
+              <p class="order-created-at">{{ formatDate(tr.created_at) }}</p>
+            </vs-td>
 
-              <vs-td>
-                <p class="order-created-at">{{ formatDate(tr.created_at) }}</p>
-              </vs-td>
+            <vs-td>
+              <p class="order-price">{{ formatMoney(tr.value) }}</p>
+            </vs-td>
 
-              <vs-td>
-                <p class="order-price">{{ formatMoney(tr.value) }}</p>
-              </vs-td>
-
-              <vs-td class="whitespace-no-wrap">
-                <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
-                <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteDialog(tr.id)" />
-              </vs-td>
-
-            </vs-tr>
-          </tbody>
-        </template>
+            <vs-td class="whitespace-no-wrap">
+              <feather-icon
+                icon="EditIcon"
+                svg-classes="w-5 h-5 hover:text-primary stroke-current"
+                @click.stop="editData(tr)"
+              />
+              <feather-icon
+                icon="TrashIcon"
+                svg-classes="w-5 h-5 hover:text-danger stroke-current"
+                class="ml-2"
+                @click.stop="deleteDialog(tr.id)"
+              />
+            </vs-td>
+          </vs-tr>
+        </tbody>
+      </template>
     </vs-table>
   </div>
 </template>
 
 <script>
-import { parse, format } from 'date-fns'
-import OrdersViewSidebar from './components/OrdersViewSidebar'
+import { parse, format } from "date-fns";
+import OrdersViewSidebar from "./components/OrdersViewSidebar";
 
 export default {
   components: {
     OrdersViewSidebar
   },
-  data () {
+  data() {
     return {
       loading: false,
       loadingIndex: -1,
@@ -96,90 +137,99 @@ export default {
       isMounted: false,
       addNewDataSidebar: false,
       sidebarData: {}
-    }
+    };
   },
   computed: {
-    currentPage () {
+    currentPage() {
       if (this.isMounted) {
-        return this.$refs.table.currentx
+        return this.$refs.table.currentx;
       }
-      return 0
+      return 0;
     },
-    orders () {
-      return this.$store.state.orders.items
+    orders() {
+      return this.$store.state.orders.items;
     },
-    queriedItems () {
-      return this.$refs.table ? this.$refs.table.queriedResults.length : this.orders.length
+    queriedItems() {
+      return this.$refs.table
+        ? this.$refs.table.queriedResults.length
+        : this.orders.length;
     }
+  },
+  created() {
+    this.$store.dispatch("orders/fetchDataListItems");
+  },
+  mounted() {
+    this.isMounted = true;
   },
   methods: {
     formatDate(date) {
-      const parseDate = parse(date, 'yyyy-MM-dd HH:mm:ss', new Date());
-      return format(parseDate, 'dd/MM/yyyy - HH:mm')
+      const parseDate = parse(date, "yyyy-MM-dd HH:mm:ss", new Date());
+      return format(parseDate, "dd/MM/yyyy - HH:mm");
     },
     addNewData() {
-      this.sidebarData = {}
-      this.toggleDataSidebar(true)
+      this.sidebarData = {};
+      this.toggleDataSidebar(true);
     },
     getOrderStatusColor(status) {
-      if (status === 'PENDING')   return 'warning'
-      if (status === 'DELIVERED') return 'success'
-      return 'dark'
+      if (status === "PENDING") return "warning";
+      if (status === "DELIVERED") return "success";
+      return "dark";
     },
     translateStatus(status) {
-      if (status === 'PENDING') return 'Pendente'
-      if (status === 'DELIVERED') return 'Entregue'
-      return 'Novo'
+      if (status === "PENDING") return "Pendente";
+      if (status === "DELIVERED") return "Entregue";
+      return "Novo";
     },
     formatMoney(price) {
-      return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+      return price.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
     },
     deleteDialog(id) {
       if (!this.loading && this.loadingIndex !== id) {
         this.$vs.dialog({
-          type: 'confirm',
-          color: 'danger',
+          type: "confirm",
+          color: "danger",
           title: `Confirmação`,
-          text: 'Essa ação não poderá ser desfeita, tem certeza que deseja deletar o pedido?',
-          acceptText: 'Deletar',
-          cancelText: 'Cancelar',
+          text:
+            "Essa ação não poderá ser desfeita, tem certeza que deseja deletar o pedido?",
+          acceptText: "Deletar",
+          cancelText: "Cancelar",
           accept: () => this.deleteData(id)
-        })
+        });
       }
     },
     deleteData(id) {
-      this.loading = true
-      this.loadingIndex = id
-      this.$store.dispatch('orders/removeItem', id)
-      .then(({ data }) => {
+      this.loading = true;
+      this.loadingIndex = id;
+      this.$store
+        .dispatch("orders/removeItem", id)
+        .then(({ data }) => {
           this.$vs.notify({
-            color: 'success',
+            color: "success",
             text: data.message,
-            position: 'bottom-center'
-          })
-      }).catch(({ message }) => {
-						this.$vs.notify({
-							color: 'danger',
-							text: message,
-							position: 'bottom-center'
-						})
-			}).finally(() => this.loading = false)
+            position: "bottom-center"
+          });
+        })
+        .catch(({ message }) => {
+          this.$vs.notify({
+            color: "danger",
+            text: message,
+            position: "bottom-center"
+          });
+        })
+        .finally(() => (this.loading = false));
     },
-    editData (data) {
-      this.sidebarData = data
-      this.toggleDataSidebar(true)
+    editData(data) {
+      this.sidebarData = data;
+      this.toggleDataSidebar(true);
     },
-    toggleDataSidebar (val = false) {
-      this.addNewDataSidebar = val
+    toggleDataSidebar(val = false) {
+      this.addNewDataSidebar = val;
     }
-  },
-  created () {
-    this.$store.dispatch('orders/fetchDataListItems')
-  },
-  mounted () {
-    this.isMounted = true
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -229,18 +279,18 @@ export default {
         flex-grow: 1;
       }
 
-      .vs-table--search{
+      .vs-table--search {
         padding-top: 0;
 
         .vs-table--search-input {
           padding: 0.9rem 2.5rem;
           font-size: 1rem;
 
-          &+i {
+          & + i {
             left: 1rem;
           }
 
-          &:focus+i {
+          &:focus + i {
             left: 1rem;
           }
         }
@@ -252,39 +302,39 @@ export default {
       border-spacing: 0 1.3rem;
       padding: 0 1rem;
 
-      tr{
-          box-shadow: 0 4px 20px 0 rgba(0,0,0,.05);
-          td{
-            padding: 20px;
-            &:first-child{
-              border-top-left-radius: .5rem;
-              border-bottom-left-radius: .5rem;
-            }
-            &:last-child{
-              border-top-right-radius: .5rem;
-              border-bottom-right-radius: .5rem;
-            }
+      tr {
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+        td {
+          padding: 20px;
+          &:first-child {
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
           }
-          td.td-check{
-            padding: 20px !important;
+          &:last-child {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
           }
+        }
+        td.td-check {
+          padding: 20px !important;
+        }
       }
     }
 
-    .vs-table--thead{
+    .vs-table--thead {
       th {
         padding-top: 0;
         padding-bottom: 0;
 
-        .vs-table-text{
+        .vs-table-text {
           text-transform: uppercase;
           font-weight: 600;
         }
       }
-      th.td-check{
+      th.td-check {
         padding: 0 15px !important;
       }
-      tr{
+      tr {
         background: none;
         box-shadow: none;
       }

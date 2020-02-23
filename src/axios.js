@@ -1,18 +1,20 @@
 // axios
-import axios from 'axios'
+import axios from "axios";
 
-const baseURL = "http://localhost/"
+const baseURL = "http://localhost/";
 
- const instance = axios.create({
+const instance = axios.create({
   baseURL: baseURL,
-  responseType: 'json'
-})
+  responseType: "json"
+});
 
-instance.interceptors.response.use((response) => {
-  return response
-}, function (error) {
-  return Promise.reject(error.response)
-})
+instance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  function(error) {
+    return Promise.reject(error.response);
+  }
+);
 
-
-export default instance
+export default instance;

@@ -1,8 +1,11 @@
 <template functional>
   <div class="vx-input-group flex" :class="data.staticClass">
-
     <!-- SLOT: PREPEND -->
-    <div class="vx-input-group-prepend flex" :class="props.prependClasses" v-if="slots().prepend">
+    <div
+      v-if="slots().prepend"
+      class="vx-input-group-prepend flex"
+      :class="props.prependClasses"
+    >
       <slot name="prepend"></slot>
     </div>
 
@@ -12,7 +15,11 @@
     </div>
 
     <!-- SLOT: APPEND -->
-    <div class="vx-input-group-append flex" :class="props.appendClasses" v-if="slots().append">
+    <div
+      v-if="slots().append"
+      class="vx-input-group-append flex"
+      :class="props.appendClasses"
+    >
       <slot name="append"></slot>
     </div>
   </div>
@@ -20,12 +27,12 @@
 
 <script>
 export default {
-  name: 'vx-input-group',
+  name: "VxInputGroup",
   props: {
-    prependClasses : { type: String },
-    appendClasses  : { type: String }
+    prependClasses: { type: String },
+    appendClasses: { type: String }
   }
-}
+};
 </script>
 
 <style lang="scss">
