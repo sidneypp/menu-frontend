@@ -26,9 +26,5 @@ Esse desafio tem como objetivo testar seu domínio sobre Desenvolvimento Full St
 ## Instalação e Configuração
 
 -   Clone ou faça o download deste repositório
--   Execute `cp .env.example .env` no Mac/Unix ou `COPY .env.example .env` no Windows
--   Execute `docker-compose up -d` para buildar e criar os containers
--   Execute `docker exec -it app composer install` para instalar todas as dependências
--   Execute `docker exec -it app php artisan migrate` para criar as tabelas
--   Finalmente execute `docker exec -it app php artisan db:seed` para popular as tabelas
--   Se tudo funcionou corretamente, você pode navegar para `http://localhost` 🚀
+-   Execute `docker-compose up` para buildar e criar os containers
+-   Se tudo funcionou corretamente, você pode navegar para `http://localhost:8080` 🚀
