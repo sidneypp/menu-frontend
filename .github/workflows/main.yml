@@ -1,0 +1,20 @@
+name: CI
+on: [push]
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Dependencies (Node Modules)
+      run: npm install
+    - name: Execute lint (Rules to better code) via ESLint
+      run: npm run lint
+    - name: Execute build (To test Production stage)
+      run: npm run build --if-present
