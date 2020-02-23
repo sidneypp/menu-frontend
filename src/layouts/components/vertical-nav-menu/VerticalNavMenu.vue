@@ -1,13 +1,3 @@
-<!-- =========================================================================================
-  File Name: VerticalNavMenu.vue
-  Description: Vertical NavMenu Component
-  Component Name: VerticalNavMenu
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
   <div class="parentx">
     <vs-sidebar
@@ -22,7 +12,6 @@
       :hidden-background="clickNotClose"
       :reduce="reduce"
     >
-      >
       <div @mouseenter="mouseEnter" @mouseleave="mouseLeave">
         <!-- Header -->
         <div

@@ -25,8 +25,6 @@
 
         <vs-spacer />
 
-        <search-bar />
-
         <profile-drop-down />
       </vs-navbar>
     </div>
@@ -34,13 +32,11 @@
 </template>
 
 <script>
-import SearchBar from "./components/SearchBar.vue";
 import ProfileDropDown from "./components/ProfileDropDown.vue";
 
 export default {
   name: "TheNavbarVertical",
   components: {
-    SearchBar,
     ProfileDropDown
   },
   props: {
