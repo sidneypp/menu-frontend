@@ -113,7 +113,7 @@
 
 <script>
 import { parse, format } from "date-fns";
-import CustomersViewSidebar from "./components/CustomersViewSidebar";
+import CustomersViewSidebar from "../components/CustomersViewSidebar";
 
 export default {
   components: {

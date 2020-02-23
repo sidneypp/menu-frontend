@@ -23,17 +23,17 @@ const router = new Router({
         {
           path: "/",
           name: "home",
-          component: () => import("./views/Home.vue")
+          component: () => import("./views/pages/Home.vue")
         },
         {
           path: "/customers",
           name: "customers",
-          component: () => import("./views/Customers.vue")
+          component: () => import("./views/pages/Customers.vue")
         },
         {
           path: "/orders",
           name: "orders",
-          component: () => import("./views/Orders.vue")
+          component: () => import("./views/pages/Orders.vue")
         }
       ]
     },

@@ -122,7 +122,7 @@
 
 <script>
 import { parse, format } from "date-fns";
-import OrdersViewSidebar from "./components/OrdersViewSidebar";
+import OrdersViewSidebar from "../components/OrdersViewSidebar";
 
 export default {
   components: {
