@@ -31,11 +31,6 @@ export default {
     activeUserInfo() {
       return this.$store.state.AppActiveUser;
     }
-  },
-  methods: {
-    logout() {
-      this.$router.push("/pages/login").catch(() => {});
-    }
   }
 };
 </script>
