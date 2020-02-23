@@ -173,12 +173,12 @@ export default {
     getOrderStatusColor(status) {
       if (status === "PENDING") return "warning";
       if (status === "DELIVERED") return "success";
-      return "dark";
+      return "danger";
     },
     translateStatus(status) {
       if (status === "PENDING") return "Pendente";
       if (status === "DELIVERED") return "Entregue";
-      return "Novo";
+      return "Rejeitado";
     },
     formatMoney(price) {
       return price.toLocaleString("pt-BR", {

@@ -122,13 +122,13 @@ export default {
       isANewItem: Object.entries(this.data).length === 0,
       id: null,
       customerId: null,
-      status: "NEW",
+      status: "PENDING",
       price: "",
       loading: false,
       orderStatusChoices: [
-        { text: "Novo", value: "NEW" },
         { text: "Pendente", value: "PENDING" },
-        { text: "Entregue", value: "DELIVERED" }
+        { text: "Entregue", value: "DELIVERED" },
+        { text: "Rejeitado", value: "REJECT" }
       ],
       settings: {
         maxScrollbarLength: 60,
