@@ -30,27 +30,7 @@
       <div id="content-overlay" />
 
       <!-- Navbar -->
-      <template v-if="mainLayoutType === 'horizontal' && windowWidth >= 1200">
-        <the-navbar-horizontal
-          :navbar-type="navbarType"
-          :class="[
-            { 'text-white': isNavbarDark && !isThemeDark },
-            { 'text-base': !isNavbarDark && isThemeDark }
-          ]"
-        />
-
-        <div v-if="navbarType === 'static'" style="height: 62px"></div>
-
-        <h-nav-menu
-          :class="[
-            { 'text-white': isNavbarDark && !isThemeDark },
-            { 'text-base': !isNavbarDark && isThemeDark }
-          ]"
-          :nav-menu-items="navMenuItems"
-        />
-      </template>
-
-      <template v-else>
+      <template>
         <the-navbar-vertical
           :navbar-color="navbarColor"
           :class="[
@@ -174,7 +154,6 @@
 import BackToTop from "vue-backtotop";
 import HNavMenu from "@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue";
 import navMenuItems from "@/layouts/components/vertical-nav-menu/navMenuItems.js";
-import TheNavbarHorizontal from "@/layouts/components/navbar/TheNavbarHorizontal.vue";
 import TheNavbarVertical from "@/layouts/components/navbar/TheNavbarVertical.vue";
 import TheFooter from "@/layouts/components/TheFooter.vue";
 import themeConfig from "@/../themeConfig.js";
@@ -185,7 +164,6 @@ export default {
     BackToTop,
     HNavMenu,
     TheFooter,
-    TheNavbarHorizontal,
     TheNavbarVertical,
     VNavMenu
   },
