@@ -16,11 +16,11 @@
         >
           <div slot="actions" class="flex justify-center">
             <vs-button
+              v-if="tour.currentStep != tour.steps.length - 1"
               size="small"
               class="mr-3"
               icon-pack="feather"
               icon="icon-x"
-              v-if="tour.currentStep != tour.steps.length - 1"
               icon-after
               color="#fff"
               type="border"
@@ -30,10 +30,10 @@
             </vs-button>
 
             <vs-button
+              v-if="tour.currentStep"
               size="small"
               icon-pack="feather"
               icon="icon-chevrons-left"
-              v-if="tour.currentStep"
               color="#fff"
               type="border"
               class="mr-3"
@@ -43,12 +43,12 @@
             </vs-button>
 
             <vs-button
+              v-if="tour.currentStep != tour.steps.length - 1"
               size="small"
               icon-pack="feather"
               icon="icon-chevrons-right"
               icon-after
               color="#fff"
-              v-if="tour.currentStep != tour.steps.length - 1"
               type="border"
               class="btn-tour-next"
               @click="tour.nextStep"
@@ -57,12 +57,12 @@
             </vs-button>
 
             <vs-button
+              v-if="tour.currentStep == tour.steps.length - 1"
               size="small"
               icon-pack="feather"
               icon="icon-check-circle"
               icon-after
               color="#fff"
-              v-if="tour.currentStep == tour.steps.length - 1"
               type="border"
               class="btn-tour-finish"
               @click="tour.stop"

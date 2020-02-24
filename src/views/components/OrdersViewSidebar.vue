@@ -28,7 +28,7 @@
       <div class="p-6">
         <!-- CUSTOMER -->
         <div class="mt-5 w-full">
-          <label for="" class="vs-select--label">Cliente</label>
+          <label for class="vs-select--label">Cliente</label>
           <v-select
             v-model="customerId"
             :options="customers"
@@ -40,7 +40,7 @@
 
         <!-- ORDER STATUS -->
         <div class="mt-5 w-full">
-          <label for="" class="vs-select--label">Status do Pedido</label>
+          <label for class="vs-select--label">Status do Pedido</label>
           <v-select
             v-model="status"
             :options="orderStatusChoices"
@@ -60,9 +60,9 @@
           class="mt-5 w-full"
           name="price"
         />
-        <span v-show="errors.has('price')" class="text-danger text-sm">{{
-          errors.first("price")
-        }}</span>
+        <span v-show="errors.has('price')" class="text-danger text-sm">
+          {{ errors.first("price") }}
+        </span>
       </div>
     </component>
 
@@ -128,7 +128,7 @@ export default {
       orderStatusChoices: [
         { text: "Pendente", value: "PENDING" },
         { text: "Entregue", value: "DELIVERED" },
-        { text: "Rejeitado", value: "REJECT" }
+        { text: "Rejeitado", value: "REJECTED" }
       ],
       settings: {
         maxScrollbarLength: 60,
@@ -199,7 +199,7 @@ export default {
     initValues() {
       if (this.data.id) return;
       this.id = null;
-      this.status = "NEW";
+      this.status = "PENDING";
       this.price = "";
       this.customerId = null;
     },
