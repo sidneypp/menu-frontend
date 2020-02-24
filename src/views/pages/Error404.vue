@@ -9,14 +9,16 @@
         class="mx-auto mb-4 max-w-full"
       />
       <h1 class="sm:mx-0 mx-4 mb-12 text-5xl d-theme-heading-color">
-        404 - Page Not Found!
+        404 Página Não Encontrada!
       </h1>
       <p class="sm:mx-0 mx-4 mb-4 sm:mb-16 d-theme-text-inverse">
-        paraphonic unassessable foramination Caulopteris worral Spirophyton
-        encrimson esparcet aggerate chondrule restate whistler shallopy
-        biosystematy area bertram plotting unstarting quarterstaff.
+        A pagina que você solicitou não foi encontrada e nós temos alguns
+        palpites do motivo. Se você digitou a URL diretamente, verifique se ela
+        está correta. Agora se você clicou em algum link, é provavel que esteja
+        desatualizado. O que podemos fazer? Sem crise, ajuda está próxima! Tem
+        muitas formas de você continuar pesquisando em nosso site.
       </p>
-      <vs-button size="large" to="/">Back to Home</vs-button>
+      <vs-button size="large" to="/">Voltar à página inicial</vs-button>
     </div>
   </div>
 </template>
