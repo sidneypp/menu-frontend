@@ -54,23 +54,21 @@ export default {
       required: true
     },
     statisticTitle: {
-      type: String
+      type: String,
+      default: ""
     },
     chartData: {
-      // type: Array,
-      // required: true
+      type: Array,
+      required: true
     },
     color: {
       type: String,
       default: "primary"
     },
     colorTo: {
-      type: String
+      type: String,
+      default: ""
     },
-    // chartType: {
-    //     type: String,
-    //     default: 'line-chart',
-    // },
     type: {
       type: String,
       default: "line"
@@ -82,6 +80,10 @@ export default {
     hideChart: {
       type: Boolean,
       default: false
+    },
+    formatter: {
+      type: Function,
+      default: value => value
     }
   },
   data() {
@@ -105,6 +107,16 @@ export default {
     if (this.type == "area") {
       // assign chart options
       this.chartOptions = Object.assign({}, chartConfigs.areaChartOptions);
+
+      this.chartOptions["yaxis"] = [
+        {
+          y: 0,
+          offsetX: 0,
+          offsetY: 0,
+          padding: { left: 0, right: 0 },
+          labels: { formatter: this.formatter }
+        }
+      ];
 
       this.chartOptions["theme"] = {
         monochrome: {

@@ -1,3 +1,5 @@
+import { formatMoney } from "@/utils";
+
 /*=========================================================================================
   File Name: analyticsData.vue
   Description: Data shown by charts
@@ -267,9 +269,7 @@ export default {
           style: {
             cssClass: "text-grey fill-current"
           },
-          formatter(val) {
-            return val > 999 ? `${(val / 1000).toFixed(1)}k` : val;
-          }
+          formatter: formatMoney
         }
       },
       tooltip: {

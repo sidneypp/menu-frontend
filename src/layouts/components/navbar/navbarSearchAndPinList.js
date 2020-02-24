@@ -2,7 +2,7 @@ export default {
   pages: {
     key: "title",
     data: [
-      { title: "Home", url: "/", icon: "HomeIcon", is_bookmarked: false },
+      { title: "Dashboard", url: "/", icon: "HomeIcon", is_bookmarked: false },
       {
         title: "Clientes",
         url: "/customers",
@@ -12,7 +12,7 @@ export default {
       {
         title: "Pedidos",
         url: "/orders",
-        icon: "ListIcon",
+        icon: "ShoppingBagIcon",
         is_bookmarked: false
       }
     ]

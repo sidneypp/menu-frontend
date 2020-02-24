@@ -1,8 +1,8 @@
 export default [
   {
     url: "/",
-    name: "Home",
-    slug: "home",
+    name: "Dashboard",
+    slug: "dashboard",
     icon: "HomeIcon"
   },
   {
@@ -15,6 +15,6 @@ export default [
     url: "/orders",
     name: "Pedidos",
     slug: "orders",
-    icon: "ListIcon"
+    icon: "ShoppingBagIcon"
   }
 ];
