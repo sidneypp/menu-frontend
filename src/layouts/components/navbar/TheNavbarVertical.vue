@@ -60,7 +60,7 @@ export default {
     classObj() {
       if (this.verticalNavMenuWidth == "default") return "navbar-default";
       else if (this.verticalNavMenuWidth == "reduced") return "navbar-reduced";
-      else if (this.verticalNavMenuWidth) return "navbar-full";
+      return "navbar-full";
     }
   },
   methods: {

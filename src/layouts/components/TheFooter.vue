@@ -24,7 +24,8 @@ export default {
   name: "TheFooter",
   props: {
     classes: {
-      type: String
+      type: String,
+      default: ""
     }
   }
 };

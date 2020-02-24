@@ -154,12 +154,11 @@ export default {
     Logo
   },
   props: {
-    logo: { type: String },
     openGroupHover: { type: Boolean, default: false },
-    parent: { type: String },
+    parent: { type: String, default: "" },
     reduceNotRebound: { type: Boolean, default: true },
     navMenuItems: { type: Array, required: true },
-    title: { type: String }
+    title: { type: String, default: "" }
   },
   data: () => ({
     clickNotClose: false, // disable close navMenu on outside click

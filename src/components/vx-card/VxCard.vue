@@ -127,8 +127,14 @@ export default {
     Prism
   },
   props: {
-    title: String,
-    subtitle: String,
+    title: {
+      type: String,
+      default: ""
+    },
+    subtitle: {
+      type: String,
+      default: ""
+    },
     actionButtons: {
       type: Boolean,
       default: false

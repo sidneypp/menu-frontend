@@ -5,9 +5,9 @@ export default {
   name: "FeatherIcon",
   functional: true,
   props: {
-    icon: { required: true },
+    icon: { type: String, required: true },
     svgClasses: { type: [String, Object, Array], default: "" },
-    badge: {}
+    badge: { type: Number, default: 0 }
   },
   render(h, { props, data }) {
     // Add feather classes
