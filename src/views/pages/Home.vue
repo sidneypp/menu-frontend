@@ -4,7 +4,7 @@
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
         <statistics-card-line
           icon="UsersIcon"
-          :statistic="customersGained.customers"
+          :statistic="customersGained.analyticsData.customers"
           statistic-title="Clientes Conquistados"
           :chart-data="customersGained.series"
           type="area"
@@ -14,7 +14,7 @@
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
         <statistics-card-line
           icon="DollarSignIcon"
-          :statistic="revenueGenerated.revenues"
+          :statistic="revenueGenerated.analyticsData.revenues"
           statistic-title="Receita Gerada"
           :chart-data="revenueGenerated.series"
           color="success"
@@ -37,7 +37,7 @@
       <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
         <statistics-card-line
           icon="ShoppingBagIcon"
-          :statistic="ordersRecevied.orders"
+          :statistic="ordersRecevied.analyticsData.orders"
           statistic-title="Pedidos Recebidos"
           :chart-data="ordersRecevied.series"
           color="warning"
@@ -47,93 +47,55 @@
     </div>
 
     <div class="vx-row">
-      <!-- LINE CHART -->
       <div class="vx-col w-full md:w-2/3 mb-base">
-        <vx-card title="Receita">
-          <div slot="no-body" class="p-6 pb-0">
-            <div v-if="revenueComparisonLine.analyticsData" class="flex">
-              <div class="mr-6">
-                <p class="mb-1 font-semibold">Esse Mês</p>
-                <p class="text-3xl text-success">
-                  {{
-                    formatMoney(revenueComparisonLine.analyticsData.thisMonth)
-                  }}
-                </p>
-              </div>
-            </div>
-            <vue-apex-charts
-              type="line"
-              height="266"
-              :options="analyticsData.revenueComparisonLine.chartOptions"
-              :series="revenueComparisonLine.series"
-            />
-          </div>
-        </vx-card>
+        <monthly-revenue-card
+          title="Esse Mês"
+          :month-revenue="monthlyRevenue.analyticsData.thisMonth"
+          :chart-data="monthlyRevenue.series"
+          :chart-categories="monthlyRevenue.categories"
+          :formatter="formatMoney"
+        />
       </div>
 
-      <!-- RADIAL CHART -->
       <div class="vx-col w-full md:w-1/3 mb-base">
-        <vx-card title="Pedidos Entregues">
-          <!-- CHART -->
-          <template slot="no-body">
-            <div class="mt-10">
-              <vue-apex-charts
-                type="radialBar"
-                height="240"
-                :options="analyticsData.goalOverviewRadialBar.chartOptions"
-                :series="ordersDelivered.series"
-              />
-            </div>
-          </template>
-
-          <!-- DATA -->
-          <div
-            slot="no-body-bottom"
-            class="flex justify-between text-center mt-6"
-          >
-            <div
-              class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0"
-            >
-              <p class="mt-4">Entregue</p>
-              <p class="mb-4 text-3xl font-semibold">
-                {{ ordersDelivered.analyticsData.delivered }}
-              </p>
-            </div>
-            <div
-              class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0"
-            >
-              <p class="mt-4">Pendente</p>
-              <p class="mb-4 text-3xl font-semibold">
-                {{ ordersDelivered.analyticsData.pending }}
-              </p>
-            </div>
-          </div>
-        </vx-card>
+        <orders-delivered
+          title="Pedidos Entregues"
+          :chart-data="ordersDelivered.series"
+          :orders-delivered="ordersDelivered.analyticsData.delivered"
+          :orders-pending="ordersDelivered.analyticsData.pending"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import StatisticsCardLine from "@/components/statistics-cards/StatisticsCardLine.vue";
-import VueApexCharts from "vue-apexcharts";
-import analyticsData from "../analyticsData";
 import { formatMoney } from "@/utils";
+
+import StatisticsCardLine from "@/components/statistics-cards/StatisticsCardLine";
+import MonthlyRevenueCard from "@/components/monthly-revenue-card/MonthlyRevenueCard";
+import OrdersDelivered from "@/components/orders-delivered-card/OrdersDeliveredCard";
+
 export default {
   components: {
     StatisticsCardLine,
-    VueApexCharts
+    MonthlyRevenueCard,
+    OrdersDelivered
   },
   data() {
     return {
       formatMoney,
       customersGained: {
         series: [],
-        customers: 0
+        analyticsData: {
+          customers: 0
+        }
       },
       revenueGenerated: {
         series: [],
-        revenues: 0
+        analyticsData: {
+          revenues: 0
+        }
       },
       ordersRejected: {
         series: [],
@@ -143,13 +105,14 @@ export default {
       },
       ordersRecevied: {
         series: [],
-        orders: 0
+        analyticsData: {
+          orders: 0
+        }
       },
-      revenueComparisonLine: {
+      monthlyRevenue: {
         series: [],
         analyticsData: {
-          thisMonth: 0,
-          lastMonth: 0
+          thisMonth: 0
         }
       },
       ordersDelivered: {
@@ -158,8 +121,7 @@ export default {
           delivered: 0,
           pending: 0
         }
-      },
-      analyticsData
+      }
     };
   },
   created() {
@@ -179,8 +141,8 @@ export default {
       this.ordersRecevied = data;
     });
 
-    this.$http.get("/statistics/revenue-comparison").then(({ data }) => {
-      this.revenueComparisonLine = data;
+    this.$http.get("/statistics/monthly-revenue").then(({ data }) => {
+      this.monthlyRevenue = data;
     });
 
     this.$http.get("/statistics/orders-delivered").then(({ data }) => {
