@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: "/",
-  transpileDependencies: ["vue-echarts", "resize-detector"],
+  transpileDependencies: ["resize-detector"],
   configureWebpack: {
     optimization: {
       splitChunks: {
