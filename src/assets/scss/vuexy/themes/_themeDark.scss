@@ -1,17 +1,6 @@
-/*=========================================================================================
-    File Name: _themeDark.scss
-    Description: partial- Styles for dark theme
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-
 .theme-dark {
-
   // Changes color code of dark color
-  --vs-dark: 184,194,204;
+  --vs-dark: 184, 194, 204;
 
   background-color: $content-dark-bg;
   color: $theme-dark-text-color !important;
@@ -28,7 +17,7 @@
     .menu-item {
       .h-nav-menu-item {
         &.disabled-item {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
     }
@@ -60,7 +49,6 @@
       }
     }
   }
-
 
   .content-area__heading {
     h2 {
@@ -98,7 +86,6 @@
   h5,
   h6 {
     color: $theme-dark-heading-color;
-
   }
 
   ul.bordered-items {
@@ -110,7 +97,6 @@
   // Notification
   .notification-dropdown,
   .cart-dropdown {
-
     .notification:hover,
     .cart-item:hover {
       background: $dark-card-color;
@@ -219,7 +205,12 @@
   }
 
   .vx-navbar-wrapper {
-    background: linear-gradient(to bottom, rgba(44, 48, 60, 0.9) 44%, rgba(44, 48, 60, 0.43) 73%, rgba(44, 48, 60, 0) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(44, 48, 60, 0.9) 44%,
+      rgba(44, 48, 60, 0.43) 73%,
+      rgba(44, 48, 60, 0) 100%
+    );
 
     .vs-navbar {
       .search-full-container {
@@ -255,11 +246,15 @@
 
     .shadow-bottom {
       width: 94%;
-      background: linear-gradient(to bottom, rgb(15, 22, 66) 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0) 100%)
+      background: linear-gradient(
+        to bottom,
+        rgb(15, 22, 66) 44%,
+        rgba(15, 22, 66, 0.51) 73%,
+        rgba(44, 48, 60, 0) 100%
+      );
     }
 
     .scroll-area-v-nav-menu {
-
       .feather-icon,
       span:not(.vs-chip--text) {
         color: $theme-dark-text-color;
@@ -268,7 +263,6 @@
       a {
         &:not(.router-link-active) {
           .feather-icon {
-
             svg,
             span {
               color: $theme-dark-text-color;
@@ -285,13 +279,13 @@
 
       .vs-sidebar-group {
         &.vs-sidebar-group-active {
-          >.group-header {
+          > .group-header {
             background: $content-dark-bg;
           }
         }
 
         &.vs-sidebar-group-open {
-          >.group-header {
+          > .group-header {
             background: $content-dark-bg;
           }
         }
@@ -302,7 +296,7 @@
   // Sidebar Perfect Scrollbar
   .ps {
     &:hover {
-      &>.ps__scrollbar-y-rail {
+      & > .ps__scrollbar-y-rail {
         &:hover {
           background-color: $dark-card-color;
         }
@@ -448,7 +442,6 @@
     .email__mails {
       .email__mail-item {
         .mail__mail-item {
-
           background: $theme-dark-bg;
 
           &:hover {
@@ -547,10 +540,8 @@
     }
   }
 
-
   // breadcrumb
   .vs-breadcrumb--ol {
-
     a,
     .vs-breadcrum--separator {
       color: $grey-light;
@@ -693,7 +684,7 @@
 
   // Loading
   .con-vs-loading {
-    background: rgba($dark-card-color, .6);
+    background: rgba($dark-card-color, 0.6);
 
     h4.title-loading {
       color: $theme-dark-text-color;
@@ -707,7 +698,7 @@
     }
 
     .vs-list--item {
-      border-color: rgba($theme-dark-text-color, .08);
+      border-color: rgba($theme-dark-text-color, 0.08);
     }
   }
 
@@ -733,7 +724,7 @@
   .vs-navbar {
     &.vs-navbar-color-transparent:not(.vs-navbar-flat) {
       background-color: $theme-dark-bg !important;
-      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .5);
+      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -811,7 +802,7 @@
 
     .vs-sidebar-group {
       &.vs-sidebar-group-active {
-        >.group-header {
+        > .group-header {
           background: $content-dark-bg;
         }
       }
@@ -835,15 +826,18 @@
   }
 
   .vs-tabs-dark {
-
     .activeChild button,
     button:not(:disabled):hover {
       color: $grey !important;
     }
 
     .line-vs-tabs {
-      background: linear-gradient(30deg, rgba($grey, 1), rgba($grey, .5)) !important;
-      box-shadow: 0 0 8px 0 rgba($grey, .4) !important;
+      background: linear-gradient(
+        30deg,
+        rgba($grey, 1),
+        rgba($grey, 0.5)
+      ) !important;
+      box-shadow: 0 0 8px 0 rgba($grey, 0.4) !important;
     }
   }
 
@@ -856,7 +850,6 @@
 
   // Upload
   .con-upload {
-
     .con-input-upload,
     .con-img-upload {
       background-color: $content-dark-bg;
@@ -871,14 +864,13 @@
     }
   }
 
-
   // Form Fields
   input {
     background: $theme-dark-bg;
     color: $theme-dark-text-color;
 
-    ~.vs-placeholder-label,
-    ~.vs-input--placeholder {
+    ~ .vs-placeholder-label,
+    ~ .vs-input--placeholder {
       color: $theme-dark-text-color;
     }
   }
@@ -889,10 +881,10 @@
 
   .vs-input--icon {
     color: $theme-dark-text-color;
-    border-right-color: rgba($theme-dark-text-color, .2);
+    border-right-color: rgba($theme-dark-text-color, 0.2);
 
     &.icon-after {
-      border-left-color: rgba($theme-dark-text-color, .2);
+      border-left-color: rgba($theme-dark-text-color, 0.2);
     }
   }
 
@@ -900,10 +892,8 @@
     background: $content-dark-bg;
 
     button {
-
       &.vs-input-number--button-less,
       &.vs-input-number--button-plus {
-
         &:disabled,
         &.limit {
           opacity: 0.75;
@@ -983,12 +973,12 @@
   .vs-radio-dark {
     .vs-radio--circle {
       background: $grey;
-      box-shadow: 0 3px 12px 0 rgba($grey, .4);
+      box-shadow: 0 3px 12px 0 rgba($grey, 0.4);
     }
   }
 
   .op-block {
-    box-shadow: 1px 1px 10px rgba($white, .1)
+    box-shadow: 1px 1px 10px rgba($white, 0.1);
   }
 
   .vs-input-dark {
@@ -996,7 +986,7 @@
       &:focus {
         border-color: $grey !important;
 
-        ~.vs-input--placeholder {
+        ~ .vs-input--placeholder {
           color: $grey;
         }
       }
@@ -1006,12 +996,12 @@
   .vue-form-wizard {
     .wizard-icon-circle {
       background: $table-light-stripe;
-      border-color: $table-dark-stripe
+      border-color: $table-dark-stripe;
     }
 
     .wizard-nav-pills {
-      &>li {
-        &>a {
+      & > li {
+        & > a {
           color: $white;
 
           .stepTitle {
@@ -1228,7 +1218,7 @@
     .ql-editor {
       &.ql-blank {
         &::before {
-          color: rgba($white, .6);
+          color: rgba($white, 0.6);
         }
       }
     }
@@ -1245,7 +1235,6 @@
       border-color: $theme-dark-border-color;
 
       header {
-
         .prev,
         .next,
         .up {
@@ -1257,7 +1246,7 @@
         }
       }
       .disabled {
-        color: rgba($grey, .6);
+        color: rgba($grey, 0.6);
       }
 
       .cell {
@@ -1284,20 +1273,20 @@
     }
 
     .vs-collapse-item {
-      border-bottom-color: rgba($white, .04);
+      border-bottom-color: rgba($white, 0.04);
     }
 
     &.border {
-      border-color: rgba($white, .1);
+      border-color: rgba($white, 0.1);
 
       .vs-collapse-item {
-        border-bottom-color: rgba($white, .04);
+        border-bottom-color: rgba($white, 0.04);
       }
     }
 
     &.margin {
       .vs-collapse-item {
-        box-shadow: 0 2px 10px 0 rgba($theme-dark-shadow-color, 1)
+        box-shadow: 0 2px 10px 0 rgba($theme-dark-shadow-color, 1);
       }
     }
   }
@@ -1357,7 +1346,6 @@
       }
 
       .con-upload {
-
         .con-input-upload,
         .con-img-upload {
           background: $dark-card-color;
@@ -1400,13 +1388,11 @@
     }
   }
 
-
   // //////////////////////////////////////////////////////////////////////////////////////////////
   // STYLE IF COMPONENT IS INSIDE CARD (Any wrapper which have dark $theme-dark background color)
   // //////////////////////////////////////////////////////////////////////////////////////////////
 
   .vx-card {
-
     // PAGINATION
     .vs-pagination--nav {
       .vs-pagination--ul {
@@ -1506,8 +1492,7 @@
       }
     }
 
-    .vs-navbar-border
-    {
+    .vs-navbar-border {
       border-color: $theme-dark-border-color;
 
       .vs-navbar--item {
@@ -1529,7 +1514,6 @@
     }
   }
 }
-
 
 // RTL Fixes for dark mode
 /*! rtl:begin:ignore */

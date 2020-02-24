@@ -1,17 +1,6 @@
-/*=========================================================================================
-  File Name: _layoutVertical.scss
-  Description: Vertical Layout Styles
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-
-@import '../_variables.scss';
+@import "../_variables.scss";
 
 .main-vertical {
-
   &.navbar-sticky {
     .router-content {
       margin-top: 4.5rem;

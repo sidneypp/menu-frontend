@@ -1,14 +1,5 @@
 import { formatMoney } from "@/utils";
 
-/*=========================================================================================
-  File Name: analyticsData.vue
-  Description: Data shown by charts
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 export default {
   // LINE CHART
   siteTraffic: {
