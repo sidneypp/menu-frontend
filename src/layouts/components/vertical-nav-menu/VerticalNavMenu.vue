@@ -24,10 +24,14 @@
             class="vx-logo cursor-pointer flex items-center"
             to="/"
           >
-            <logo class="w-10 mr-4 fill-current text-primary" />
+            <img
+              v-if="!isMouseEnter && reduce"
+              class="w-12 mr-4"
+              src="@/assets/images/logo/logo.png"
+            />
             <span
-              v-show="isMouseEnter || !reduce"
               v-if="title"
+              v-show="isMouseEnter || !reduce"
               class="vx-logo-text text-primary"
               >{{ title }}</span
             >
@@ -81,9 +85,8 @@
               v-if="item.header && !verticalNavMenuItemsMin"
               :key="`header-${index}`"
               class="navigation-header truncate"
+              >{{ item.header }}</span
             >
-              {{ item.header }}
-            </span>
             <!-- /Group Header -->
 
             <template v-else-if="!item.header">
